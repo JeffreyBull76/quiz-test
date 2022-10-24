@@ -24,7 +24,7 @@ def validate_question(answer):
     """
     Checks for valid answer
     """
-    if answer not in ("a", "A", "b", "B", "c", "C"):
+    if answer.upper() not in ("A", "B", "C"):
         print("Answer is not valid!")
         print("Please answer with A, B or C")
         return False
@@ -37,22 +37,21 @@ def ask_question():
     """
     Question function
     """
-    random_question = randrange(2) + 1
+    rand_quest = randrange(2) + 1
     quest = SHEET.worksheet('questions')
 
-    print(quest.col_values(1)[random_question])
-    for i in range(2, 5):
-        print(
-            f"{quest.col_values(i)[0]}: {quest.col_values(i)[random_question]}"
-            )
+    while True:
+        print(quest.col_values(1)[rand_quest])
+        for i in range(2, 5):
+            print(
+                f"{quest.col_values(i)[0]}: {quest.col_values(i)[rand_quest]}"
+                )
 
-    answer = input("Enter your answer here:\n")
-
-    if validate_question(answer):
-        print(answer)
-    else:
         answer = input("Enter your answer here:\n")
-        # The above functionality works but needs to be a while loop (CAUTION)
+
+        if validate_question(answer):
+            print(answer)
+            break
 
 
 ask_question()
