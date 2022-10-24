@@ -22,21 +22,15 @@ print("So you if you think the answer is B you would type B")
 
 def validate_question(answer):
     """
-    Inside the try, converts all string values into integers.
-    Raises ValueError if strings cannot be converted into int,
-    or if there aren't exactly 6 values.
+    Checks for valid answer
     """
-    print(answer)
-    # try:
-    #     if (A, B, C) in answer:
-    #         raise ValueError(
-    #             f"Exactly 6 values required, you provided {len(values)}"
-    #         )
-    # except ValueError as e:
-    #     print(f"Invalid data: {e}, please try again.\n")
-    #     return False
-
-    # return True
+    if answer not in ("a", "A", "b", "B", "c", "C"):
+        print("Answer is not valid!")
+        print("Please answer with A, B or C")
+        return False
+    else:
+        print("Answer is valid!")
+        return True
 
 
 def ask_question():
@@ -44,23 +38,28 @@ def ask_question():
     Question function
     """
     random_question = randrange(2) + 1
-    questions = SHEET.worksheet('questions')
+    quest = SHEET.worksheet('questions')
 
-    print(questions.col_values(1)[random_question])
-    print(f'A: {questions.col_values(2)[random_question]} \
-    B: {questions.col_values(3)[random_question]} \
-     C: {questions.col_values(4)[random_question]}')
+    print(quest.col_values(1)[random_question])
+    for i in range(2, 5):
+        print(
+            f"{quest.col_values(i)[0]}: {quest.col_values(i)[random_question]}"
+            )
 
     answer = input("Enter your answer here:\n")
 
-    validate_question(answer)
-
-    # if validate_question(random_question):
-    #         print("Answer is valid!")
-    #         break
-
-    # print()
-    # return sales_data
+    if validate_question(answer):
+        print(answer)
+    else:
+        answer = input("Enter your answer here:\n")
+        # The above functionality works but needs to be a while loop (CAUTION)
 
 
 ask_question()
+
+# Next we need to make sure this call loops to request a valid answer
+# Also need to make a function that generates 4 or 5 uniques numbers for asking
+# the questions this will replace or become the random question var
+
+# Further work we need to score the player - try to create a method for 
+# this that calls whenever a question is asked 
