@@ -1,5 +1,4 @@
 import gspread
-from random import randrange
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -33,12 +32,17 @@ def validate_question(answer):
         return True
 
 
-# def check_question(answer, quest_num):
-#     """
-#     Checks to see if answer is correct or incorrect
-#     """
-#     print(answer)
-#     print(quest_num)
+def check_question(answer, active_quest):
+    """
+    Checks to see if answer is correct or incorrect
+    """
+    quest = SHEET.worksheet('questions')
+    quest_num = active_quest
+
+    if answer.upper() == quest.col_values(5)[quest_num]:
+        print("correct")
+    else:
+        print("incorrect")
 
 
 def ask_question():
@@ -58,15 +62,15 @@ def ask_question():
         answer = input("Enter your answer here:\n")
 
         if validate_question(answer):
-            print(quest_num)
+            check_question(answer, quest_num)
             quest_num += 1
             
 
 ask_question()
 
-# Next we need to make sure this call loops to request a valid answer
-# Also need to make a function that generates 4 or 5 uniques numbers for asking
-# the questions this will replace or become the random question var
+# loop now correctly checks for a valid answer 
+# NEXT we must track and itterate the players score
+# THEN write that score to the worksheet with a username
 
-# Further work we need to score the player - try to create a method for 
-# this that calls whenever a question is asked 
+# EXTRA WORK allow selecting difficulty and different categories
+# TRY to implement some form of method to show I can use this
