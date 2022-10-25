@@ -33,26 +33,34 @@ def validate_question(answer):
         return True
 
 
+# def check_question(answer, quest_num):
+#     """
+#     Checks to see if answer is correct or incorrect
+#     """
+#     print(answer)
+#     print(quest_num)
+
+
 def ask_question():
     """
     Question function
     """
-    rand_quest = randrange(2) + 1
     quest = SHEET.worksheet('questions')
+    quest_num = 1
 
-    while True:
-        print(quest.col_values(1)[rand_quest])
+    while quest_num <= 5:
+        print(quest.col_values(1)[quest_num])
         for i in range(2, 5):
             print(
-                f"{quest.col_values(i)[0]}: {quest.col_values(i)[rand_quest]}"
+                f"{quest.col_values(i)[0]}: {quest.col_values(i)[quest_num]}"
                 )
 
         answer = input("Enter your answer here:\n")
 
         if validate_question(answer):
-            print(answer)
-            break
-
+            print(quest_num)
+            quest_num += 1
+            
 
 ask_question()
 
