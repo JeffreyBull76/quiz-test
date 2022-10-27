@@ -19,33 +19,57 @@ print("Your answers are given by selecting the letter for each choice")
 print("So you if you think the answer is B you would type B")
 
 
-def validate_question(answer):
-    """
-    Checks for valid answer
-    """
-    if answer.upper() not in ("A", "B", "C"):
-        print("Answer is not valid!")
-        print("Please answer with A, B or C")
-        return False
-    else:
-        print("Answer is valid!")
-        return True
+# def validate_question(answer):
+#     """
+#     Checks for valid answer
+#     """
+#     if answer.upper() not in ("A", "B", "C"):
+#         print("Answer is not valid!")
+#         print("Please answer with A, B or C")
+#         return False
+#     else:
+#         print("Answer is valid!")
+#         return True
 
 
-def check_question(answer, active_quest):
-    """
-    Checks to see if answer is correct or incorrect
-    """
-    quest = SHEET.worksheet('questions')
-    quest_num = active_quest
+# def check_question(answer, active_quest):
+#     """
+#     Checks to see if answer is correct or incorrect
+#     """
+#     quest = SHEET.worksheet('questions')
+#     quest_num = active_quest
 
-    if answer.upper() == quest.col_values(5)[quest_num]:
-        print("correct")
-    else:
-        print("incorrect")
+#     if answer.upper() == quest.col_values(5)[quest_num]:
+#         print("correct")
+#     else:
+#         print("incorrect")
 
 
-def ask_question():
+# def ask_question():
+#     """
+#     Question function
+#     """
+#     quest = SHEET.worksheet('questions')
+#     quest_num = 1
+
+#     while quest_num <= 5:
+#         print(quest.col_values(1)[quest_num])
+#         for i in range(2, 5):
+#             print(
+#                 f"{quest.col_values(i)[0]}: {quest.col_values(i)[quest_num]}"
+#                 )
+
+#         answer = input("Enter your answer here:\n")
+
+#         if validate_question(answer):
+#             check_question(answer, quest_num)
+#             quest_num += 1
+
+
+que_cat = ['Question', 'Option A', 'Option B', 'Option C', 'Answer']
+
+
+def set_question():
     """
     Question function
     """
@@ -53,20 +77,18 @@ def ask_question():
     quest_num = 1
 
     while quest_num <= 5:
-        print(quest.col_values(1)[quest_num])
-        for i in range(2, 5):
+        for i in range(1, 6):
             print(
                 f"{quest.col_values(i)[0]}: {quest.col_values(i)[quest_num]}"
                 )
 
-        answer = input("Enter your answer here:\n")
-
-        if validate_question(answer):
-            check_question(answer, quest_num)
-            quest_num += 1
+        quest_num += 1
             
 
-ask_question()
+set_question()
+
+
+# ask_question()
 
 # loop now correctly checks for a valid answer 
 # NEXT we must track and itterate the players score
