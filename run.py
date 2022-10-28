@@ -63,7 +63,7 @@ def check_question(answer, rang1, rang2):
     else:
         print("INCORRECT !\n")
 
-    play_game(rang1+10, rang2+10)
+    play_game(rang1 + 10, rang2 + 10)
 
 
 def ask_question(rang1, rang2):
@@ -74,7 +74,7 @@ def ask_question(rang1, rang2):
 
     while quest_cnt < 2:
         for i in range(rang1, rang2, 2):
-            print(f"{QLIST[i]}: {QLIST[i+1]}")
+            print(f"{QLIST[i]}: {QLIST[i + 1]}")
 
         answer = input("Enter your answer here:\n")
 
@@ -96,7 +96,6 @@ def play_game(val1, val2):
 play_game(0, 8)
 
 
-# loop now correctly checks for a valid answer 
 # NEXT we must track and itterate the players score
 # THEN write that score to the worksheet with a username
 
