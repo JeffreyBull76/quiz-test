@@ -1,4 +1,5 @@
 import gspread
+import sys
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -16,7 +17,6 @@ SHEET = GSPREAD_CLIENT.open('python_quiz_questions')
 print("WELCOME TO THE QUIZ - ANSWER EACH QUESTION TO PROCEED !\n")
 print("Your answers are given by selecting the letter for each choice")
 print("So you if you think the answer is B you would type B")
-
 
 QLIST = []
 
@@ -47,21 +47,23 @@ def validate_question(answer):
     """
     if answer.upper() not in ("A", "B", "C"):
         print("Answer is not valid!")
-        print("Please answer with A, B or C")
+        print("Please answer with A, B or C\n")
         return False
     else:
-        print("Answer is valid!")
+        print("Answer is valid!\n")
         return True
 
 
-def check_question(answer):
+def check_question(answer, rang1, rang2):
     """
     Checks to see if answer is correct or incorrect
     """
-    if answer.upper() == QLIST[9]:
-        print("correct")
+    if answer.upper() == QLIST[rang2 + 1]:
+        print("CORRECT !\n")
     else:
-        print("incorrect")
+        print("INCORRECT !\n")
+
+    play_game(rang1+10, rang2+10)
 
 
 def ask_question(rang1, rang2):
@@ -73,15 +75,26 @@ def ask_question(rang1, rang2):
     while quest_cnt < 2:
         for i in range(rang1, rang2, 2):
             print(f"{QLIST[i]}: {QLIST[i+1]}")
-        
+
         answer = input("Enter your answer here:\n")
 
         if validate_question(answer):
-            check_question(answer)
+            check_question(answer, rang1, rang2)
             quest_cnt += 1
 
 
-ask_question(0, 10)
+def play_game(val1, val2):
+    """
+    Allows iteration through different questions sequences
+    """
+    if val1 < 50:
+        ask_question(val1, val2)
+    else:
+        sys.exit("GAME OVER!")
+
+
+play_game(0, 8)
+
 
 # loop now correctly checks for a valid answer 
 # NEXT we must track and itterate the players score
